@@ -1,0 +1,42 @@
+# Qt Build Files
+build/
+*.o
+*.obj
+*.user
+*.autosave
+moc_*.cpp
+ui_*.h
+qrc_*.cpp
+Makefile
+*.app
+*.exe
+
+# Backup files
+*~
+*.bak
+
+# IDE files
+.vscode/
+.idea/
+*.pro.user.*
+
+# macOS
+.DS_Store
+
+# Data files (keep empty, will be generated)
+fournisseurs.json
+supplier_ratings.json
+activity_log.json
+
+# Build directories
+debug/
+release/
+Debug/
+Release/
+*.Debug
+*.Release
+
+# Qt specific
+*.qm
+.qmake.stash
+

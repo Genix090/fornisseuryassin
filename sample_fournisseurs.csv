@@ -1,0 +1,17 @@
+ID,Nom,Adresse,Email,Telephone,TypeProduits,HistoriqueLivraisons
+1,TechSupply Corp,123 Avenue de Paris 75001 Paris,contact@techsupply.fr,+33142857890,Électronique et Informatique,45 livraisons - Moyenne 3 jours
+2,FoodMaster SARL,56 Rue du Commerce 69002 Lyon,info@foodmaster.fr,+33478456123,Produits Alimentaires,120 livraisons - Excellent service
+3,TextilePro International,89 Boulevard Haussmann 75008 Paris,sales@textilepro.com,+33143289045,Textile et Mode,78 livraisons - Qualité premium
+4,BuildMat Solutions,34 Rue Industrie 13001 Marseille,contact@buildmat.fr,+33491567234,Matériaux de Construction,95 livraisons - Livraison rapide
+5,OfficePlus Ltd,12 Avenue des Champs 75002 Paris,office@officeplus.fr,+33145678901,Fournitures Bureau,210 livraisons - Prix compétitifs
+6,GreenGarden Bio,78 Chemin Rural 31000 Toulouse,bio@greengarden.fr,+33561234567,Produits Biologiques,65 livraisons - Certification bio
+7,AutoParts Express,45 Zone Industrielle 59000 Lille,parts@autoexpress.fr,+33320456789,Pièces Automobiles,150 livraisons - Stock important
+8,PharmaCare Distribution,23 Rue Médicale 67000 Strasbourg,pharma@pharmacare.fr,+33388123456,Produits Pharmaceutiques,88 livraisons - Traçabilité complète
+9,BeautyWorld Cosmetics,67 Rue Luxe 06000 Nice,beauty@beautyworld.fr,+33493234567,Cosmétiques et Beauté,55 livraisons - Produits haut de gamme
+10,SportEquip Pro,90 Avenue Sport 44000 Nantes,sport@sportequip.fr,+33240345678,Équipements Sportifs,72 livraisons - Large gamme
+11,ElectroMax Wholesale,15 Rue Voltaire 33000 Bordeaux,electro@electromax.fr,+33556456789,Électroménager,110 livraisons - SAV excellent
+12,FurniStyle Design,28 Boulevard Art 69003 Lyon,design@furnistyle.fr,+33478567890,Mobilier et Décoration,42 livraisons - Design moderne
+13,PetCare Supplies,51 Rue Animaux 35000 Rennes,pet@petcare.fr,+33299678901,Animalerie,95 livraisons - Produits naturels
+14,BookMaster Distribution,19 Avenue Culture 75005 Paris,books@bookmaster.fr,+33145789012,Livres et Publications,180 livraisons - Livraison express
+15,KidsToys Paradise,73 Rue Jeux 69007 Lyon,toys@kidstoys.fr,+33478890123,Jouets et Loisirs,125 livraisons - Normes CE
+

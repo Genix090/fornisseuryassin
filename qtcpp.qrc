@@ -1,0 +1,8 @@
+<RCC>
+    <qresource lang="j" prefix="/j"/>
+    <qresource prefix="/a.pnj"/>
+    <qresource prefix="/">
+        <file>a.png</file>
+        <file>q.jpg</file>
+    </qresource>
+</RCC>

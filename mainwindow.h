@@ -6,6 +6,7 @@
 #include <QStandardItemModel>
 #include "fournisseur.h"
 #include "advancedfeatures.h"
+#include "databasemanager.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -52,6 +53,10 @@ private:
     // Advanced Features Data
     QList<SupplierRating> supplierRatings;
     QList<ActivityLog> activityLog;
+    
+    // Database Manager for Oracle/SQLite
+    DatabaseManager *dbManager;
+    bool useDatabase;
 
     // Helper methods
     void setupTableView();
@@ -79,5 +84,10 @@ private:
     void addActivityLog(const QString& action, const QString& description, int fId = -1);
     SupplierRating* getRatingForSupplier(int fournisseurId);
     void createAdvancedMenu();
+    
+    // Database connection
+    bool connectToOracle();
+    void loadFromDatabase();
+    void saveToDatabase();
 };
 #endif // MAINWINDOW_H

@@ -24,11 +24,24 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
     , tableModel(new QStandardItemModel(this))
     , currentSelectedId(-1)
+    , dbManager(nullptr)
+    , useDatabase(false)
 {
     ui->setupUi(this);
     setupTableView();
     createAdvancedMenu();
-    loadFromFile();
+    
+    // Try to connect to Oracle first
+    if (connectToOracle()) {
+        qDebug() << "✅ Using Oracle Database!";
+        useDatabase = true;
+        loadFromDatabase();
+    } else {
+        qDebug() << "ℹ️ Using JSON files (Oracle not available)";
+        useDatabase = false;
+        loadFromFile();
+    }
+    
     loadAdvancedData();
     refreshTableView();
 
@@ -174,14 +187,27 @@ void MainWindow::onAjouterClicked()
         true
     );
 
-    listeFournisseurs.append(newFournisseur);
-    addActivityLog("ADD", QString("Nouveau fournisseur ajouté: %1").arg(newFournisseur.getNom()), id);
+    // Save to Oracle if connected, otherwise to JSON
+    if (useDatabase && dbManager) {
+        if (dbManager->insertFournisseur(newFournisseur)) {
+            qDebug() << "✅ Saved to Oracle Database!";
+            listeFournisseurs.append(newFournisseur);
+            addActivityLog("ADD", QString("Nouveau fournisseur ajouté dans Oracle: %1").arg(newFournisseur.getNom()), id);
+            QMessageBox::information(this, "Succès", "Fournisseur ajouté dans Oracle Database! ✅");
+        } else {
+            QMessageBox::warning(this, "Erreur", "Erreur lors de la sauvegarde dans Oracle!");
+            return;
+        }
+    } else {
+        listeFournisseurs.append(newFournisseur);
+        addActivityLog("ADD", QString("Nouveau fournisseur ajouté: %1").arg(newFournisseur.getNom()), id);
+        saveToFile();
+        BackupManager::autoBackup("fournisseurs.json", 10);
+        QMessageBox::information(this, "Succès", "Fournisseur ajouté avec succès!");
+    }
+    
     refreshTableView();
     clearInputFields();
-    saveToFile();
-    BackupManager::autoBackup("fournisseurs.json", 10);
-    
-    QMessageBox::information(this, "Succès", "Fournisseur ajouté avec succès!");
 }
 
 void MainWindow::onModifierClicked()
@@ -204,14 +230,27 @@ void MainWindow::onModifierClicked()
             listeFournisseurs[i].setTelephone(ui->lineEdit_5->text());
             listeFournisseurs[i].setTypeProduits(ui->lineEdit_6->text());
             listeFournisseurs[i].setHistoriqueLivraisons(ui->lineEdit_7->text());
-            addActivityLog("MODIFY", QString("Fournisseur modifié: %1").arg(oldName), currentSelectedId);
+            
+            // Update in Oracle if connected
+            if (useDatabase && dbManager) {
+                if (dbManager->updateFournisseur(listeFournisseurs[i])) {
+                    qDebug() << "✅ Updated in Oracle!";
+                    addActivityLog("MODIFY", QString("Fournisseur modifié dans Oracle: %1").arg(oldName), currentSelectedId);
+                    QMessageBox::information(this, "Succès", "Fournisseur modifié dans Oracle! ✅");
+                } else {
+                    QMessageBox::warning(this, "Erreur", "Erreur lors de la mise à jour dans Oracle!");
+                    return;
+                }
+            } else {
+                addActivityLog("MODIFY", QString("Fournisseur modifié: %1").arg(oldName), currentSelectedId);
+                saveToFile();
+                QMessageBox::information(this, "Succès", "Fournisseur modifié avec succès!");
+            }
             break;
         }
     }
 
     refreshTableView();
-    saveToFile();
-    QMessageBox::information(this, "Succès", "Fournisseur modifié avec succès!");
 }
 
 void MainWindow::onSupprimerClicked()
@@ -234,13 +273,29 @@ void MainWindow::onSupprimerClicked()
             
             if (reply == QMessageBox::Yes) {
                 QString nom = listeFournisseurs[i].getNom();
-                listeFournisseurs.removeAt(i);
-                found = true;
-                addActivityLog("DELETE", QString("Fournisseur supprimé: %1").arg(nom), id);
+                
+                // Delete from Oracle if connected
+                if (useDatabase && dbManager) {
+                    if (dbManager->deleteFournisseur(id)) {
+                        qDebug() << "✅ Deleted from Oracle!";
+                        listeFournisseurs.removeAt(i);
+                        found = true;
+                        addActivityLog("DELETE", QString("Fournisseur supprimé d'Oracle: %1").arg(nom), id);
+                        QMessageBox::information(this, "Succès", "Fournisseur supprimé d'Oracle! ✅");
+                    } else {
+                        QMessageBox::warning(this, "Erreur", "Erreur lors de la suppression dans Oracle!");
+                        return;
+                    }
+                } else {
+                    listeFournisseurs.removeAt(i);
+                    found = true;
+                    addActivityLog("DELETE", QString("Fournisseur supprimé: %1").arg(nom), id);
+                    saveToFile();
+                    QMessageBox::information(this, "Succès", "Fournisseur supprimé avec succès!");
+                }
+                
                 refreshTableView();
                 clearInputFields();
-                saveToFile();
-                QMessageBox::information(this, "Succès", "Fournisseur supprimé avec succès!");
             }
             break;
         }
@@ -1204,4 +1259,71 @@ void MainWindow::onAdvancedFeaturesButtonClicked()
     
     addActivityLog("MENU", "Menu Advanced Features ouvert");
     dialog.exec();
+}
+
+// ===== ORACLE DATABASE CONNECTION =====
+
+bool MainWindow::connectToOracle()
+{
+    // Create database manager for Oracle
+    dbManager = new DatabaseManager(DatabaseManager::Oracle);
+    
+    // Try to connect to Oracle
+    if (dbManager->connectToOracle("localhost", 1521, "XE", "system", "MyPassword123")) {
+        qDebug() << "✅ Connected to Oracle Database!";
+        
+        // Create tables if they don't exist
+        if (dbManager->createTables()) {
+            qDebug() << "✅ Tables ready!";
+            
+            // Show success message to user
+            QMessageBox::information(this, "🎉 Oracle Connected!", 
+                "Successfully connected to Oracle Database!\n\n"
+                "Connection Details:\n"
+                "• Host: localhost\n"
+                "• Port: 1521\n"
+                "• SID: XE\n\n"
+                "All data will now be saved to Oracle!");
+            
+            return true;
+        }
+    }
+    
+    qDebug() << "❌ Oracle connection failed:" << dbManager->getLastError();
+    
+    // Clean up
+    if (dbManager) {
+        delete dbManager;
+        dbManager = nullptr;
+    }
+    
+    return false;
+}
+
+void MainWindow::loadFromDatabase()
+{
+    if (!dbManager || !dbManager->isConnected()) {
+        return;
+    }
+    
+    bool success;
+    listeFournisseurs = dbManager->getAllFournisseurs(success);
+    
+    if (success) {
+        qDebug() << "✅ Loaded" << listeFournisseurs.size() << "suppliers from Oracle";
+        addActivityLog("LOAD_DB", QString("Loaded %1 suppliers from Oracle").arg(listeFournisseurs.size()));
+    } else {
+        qDebug() << "❌ Error loading from Oracle:" << dbManager->getLastError();
+    }
+}
+
+void MainWindow::saveToDatabase()
+{
+    if (!dbManager || !dbManager->isConnected()) {
+        return;
+    }
+    
+    // Database is updated in real-time with each operation
+    // This method can be used for batch operations if needed
+    qDebug() << "💾 Data synced to Oracle";
 }

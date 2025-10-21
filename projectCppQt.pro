@@ -1,4 +1,4 @@
-QT       += core gui printsupport
+QT       += core gui printsupport sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -12,12 +12,16 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     fournisseur.cpp \
-    advancedfeatures.cpp
+    advancedfeatures.cpp \
+    databasemanager.cpp \
+    oracleconnection.cpp
 
 HEADERS += \
     mainwindow.h \
     fournisseur.h \
-    advancedfeatures.h
+    advancedfeatures.h \
+    databasemanager.h \
+    oracleconnection.h
 
 FORMS += \
     mainwindow.ui

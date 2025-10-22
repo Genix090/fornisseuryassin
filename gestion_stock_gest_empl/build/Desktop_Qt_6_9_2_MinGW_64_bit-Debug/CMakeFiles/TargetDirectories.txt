@@ -1,0 +1,9 @@
+C:/Users/Mohamed Ghaith Neji/Desktop/QT/gestion_stock/build/Desktop_Qt_6_9_2_MinGW_64_bit-Debug/CMakeFiles/gestion_stock.dir
+C:/Users/Mohamed Ghaith Neji/Desktop/QT/gestion_stock/build/Desktop_Qt_6_9_2_MinGW_64_bit-Debug/CMakeFiles/edit_cache.dir
+C:/Users/Mohamed Ghaith Neji/Desktop/QT/gestion_stock/build/Desktop_Qt_6_9_2_MinGW_64_bit-Debug/CMakeFiles/rebuild_cache.dir
+C:/Users/Mohamed Ghaith Neji/Desktop/QT/gestion_stock/build/Desktop_Qt_6_9_2_MinGW_64_bit-Debug/CMakeFiles/list_install_components.dir
+C:/Users/Mohamed Ghaith Neji/Desktop/QT/gestion_stock/build/Desktop_Qt_6_9_2_MinGW_64_bit-Debug/CMakeFiles/install.dir
+C:/Users/Mohamed Ghaith Neji/Desktop/QT/gestion_stock/build/Desktop_Qt_6_9_2_MinGW_64_bit-Debug/CMakeFiles/install/local.dir
+C:/Users/Mohamed Ghaith Neji/Desktop/QT/gestion_stock/build/Desktop_Qt_6_9_2_MinGW_64_bit-Debug/CMakeFiles/install/strip.dir
+C:/Users/Mohamed Ghaith Neji/Desktop/QT/gestion_stock/build/Desktop_Qt_6_9_2_MinGW_64_bit-Debug/CMakeFiles/gestion_stock_autogen_timestamp_deps.dir
+C:/Users/Mohamed Ghaith Neji/Desktop/QT/gestion_stock/build/Desktop_Qt_6_9_2_MinGW_64_bit-Debug/CMakeFiles/gestion_stock_autogen.dir

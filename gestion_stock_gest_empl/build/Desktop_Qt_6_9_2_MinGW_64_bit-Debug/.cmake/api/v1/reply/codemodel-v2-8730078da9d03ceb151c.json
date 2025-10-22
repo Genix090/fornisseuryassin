@@ -1,0 +1,79 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Debug-82baca68a2e3f3414153.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "gestion_stock",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "gestion_stock::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-gestion_stock-Debug-4b0643c1ad393f04d6de.json",
+					"name" : "gestion_stock",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "gestion_stock_autogen::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-gestion_stock_autogen-Debug-63a3fee7809fc0591f45.json",
+					"name" : "gestion_stock_autogen",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "gestion_stock_autogen_timestamp_deps::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-gestion_stock_autogen_timestamp_deps-Debug-cb71d51da7c76964e893.json",
+					"name" : "gestion_stock_autogen_timestamp_deps",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/Mohamed Ghaith Neji/Desktop/QT/gestion_stock/build/Desktop_Qt_6_9_2_MinGW_64_bit-Debug",
+		"source" : "C:/Users/Mohamed Ghaith Neji/Desktop/QT/gestion_stock"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 7
+	}
+}

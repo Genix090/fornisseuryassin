@@ -2,6 +2,11 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QStandardItemModel>
+#include <QMessageBox>
+#include "fournisseur.h"
+#include "produit.h"
+#include "databasemanager.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -80,7 +85,44 @@ private slots:
 
     void on_btnBack_Page_Fournisseurs_clicked();
 
+    // Fournisseur management slots
+    void onAddFournisseurClicked();
+    void onUpdateFournisseurClicked();
+    void onDeleteFournisseurClicked();
+    void onSearchFournisseurClicked();
+    void onFournisseurTableClicked(const QModelIndex &index);
+    void onViewProduitsByFournisseurClicked();
+
+    // Produit management slots
+    void onAddProduitClicked();
+    void onUpdateProduitClicked();
+    void onDeleteProduitClicked();
+    void onSearchProduitClicked();
+    void onProduitTableClicked(const QModelIndex &index);
+
 private:
     Ui::MainWindow *ui;
+    
+    // Database
+    DatabaseManager *dbManager;
+    bool useDatabase;
+    
+    // Table models
+    QStandardItemModel *fournisseurModel;
+    QStandardItemModel *produitModel;
+    
+    // Current selection
+    int selectedFournisseurId;
+    int selectedProduitId;
+    
+    // Helper functions
+    void initializeDatabase();
+    void setupFournisseurTable();
+    void setupProduitTable();
+    void refreshFournisseurTable();
+    void refreshProduitTable();
+    void clearFournisseurInputs();
+    void clearProduitInputs();
+    void loadFournisseursIntoComboBox();
 };
 #endif // MAINWINDOW_H
